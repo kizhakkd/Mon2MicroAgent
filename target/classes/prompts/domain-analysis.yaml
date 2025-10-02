@@ -1,0 +1,90 @@
+name: Domain Analysis Prompts
+description: Prompts for analyzing monolithic code and identifying domain boundaries
+
+templates:
+  - id: analyze-package-structure
+    description: Analyzes Java package structure to identify potential bounded contexts
+    template: |
+      As a domain expert, analyze the following Java package structure to identify potential bounded contexts:
+
+      Package Structure:
+      {{packages}}
+
+      Consider the following DDD principles:
+      1. Business domains and subdomains
+      2. Linguistic boundaries and ubiquitous language
+      3. Coupling and cohesion between packages
+      4. Data ownership and consistency boundaries
+
+      Identify and explain:
+      1. Clear bounded contexts
+      2. Potential shared kernels
+      3. Anti-corruption layers needed
+      4. Context maps showing relationships
+
+      Format your response as JSON with the following structure:
+      {
+        "boundedContexts": [
+          {
+            "name": "string",
+            "packages": ["string"],
+            "domainConcepts": ["string"],
+            "relationships": [
+              {
+                "type": "string",
+                "targetContext": "string"
+              }
+            ]
+          }
+        ]
+      }
+    requiredVariables:
+      - packages
+    examples:
+      packages: |
+        com.example.sales.order
+        com.example.sales.customer
+        com.example.inventory.product
+        com.example.inventory.stock
+        com.example.shipping.delivery
+
+  - id: identify-aggregates
+    description: Analyzes domain classes to identify aggregate roots and entities
+    template: |
+      As a DDD expert, analyze the following Java classes to identify aggregate roots, entities, and value objects:
+
+      Classes:
+      {{classes}}
+
+      Consider:
+      1. Invariants and consistency boundaries
+      2. Transactional consistency requirements
+      3. Entity lifecycle and identity
+      4. Value object immutability
+
+      Format your response as JSON with the following structure:
+      {
+        "aggregates": [
+          {
+            "root": "string",
+            "entities": ["string"],
+            "valueObjects": ["string"],
+            "invariants": ["string"]
+          }
+        ]
+      }
+    requiredVariables:
+      - classes
+    examples:
+      classes: |
+        public class Order {
+            private OrderId id;
+            private List<OrderLine> lines;
+            private Customer customer;
+            private Money totalAmount;
+        }
+        public class OrderLine {
+            private Product product;
+            private int quantity;
+            private Money price;
+        }
