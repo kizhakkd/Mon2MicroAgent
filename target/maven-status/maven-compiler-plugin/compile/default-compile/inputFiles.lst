@@ -1,0 +1,15 @@
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/mapper/DDDMapper.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/planner/StranglerPlanner.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/llm/LLMClient.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/analyzer/CodeAnalyzer.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/analyzer/JavaParserCodeAnalyzer.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/generator/ProjectGenerator.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/mapper/LLMDrivenDDDMapper.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/analyzer/LLMEnhancedCodeAnalyzer.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/refactor/LLMDrivenRefactorEngine.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/ModernizationToolkit.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/planner/impl/DefaultStranglerPlanner.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/generator/SpringBootProjectGenerator.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/refactor/RefactorEngine.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/prompt/PromptManager.java
+/workspaces/Mon2MicroAgent/src/main/java/com/google/adk/modernization/llm/GooglePaLMClient.java

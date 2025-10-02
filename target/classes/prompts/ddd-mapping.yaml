@@ -1,0 +1,92 @@
+name: DDD Mapping Prompts
+description: Prompts for DDD analysis and microservice mapping using LLMs
+
+templates:
+  - id: identify-bounded-contexts
+    description: Identifies bounded contexts from domain classes and relationships
+    template: |
+      As a Domain-Driven Design expert, analyze the following codebase structure and identify bounded contexts:
+
+      Classes and Their Relationships:
+      {{classes}}
+
+      Consider the following DDD principles:
+      1. Business capabilities and domain expertise
+      2. Data cohesion and consistency boundaries
+      3. Team organization and Conway's Law
+      4. Ubiquitous language and semantic boundaries
+
+      For each potential bounded context:
+      1. Identify the core domain concepts
+      2. Define the context boundaries
+      3. Specify the relationships with other contexts
+      4. Determine the integration patterns needed
+
+      Format your response as JSON with the following structure:
+      {
+        "boundedContexts": [
+          {
+            "name": "string",
+            "description": "string",
+            "coreConcepts": ["string"],
+            "aggregateRoots": ["string"],
+            "entities": ["string"],
+            "valueObjects": ["string"],
+            "relationships": [
+              {
+                "targetContext": "string",
+                "type": "string", // UPSTREAM, DOWNSTREAM, PARTNERSHIP, etc.
+                "integrationPattern": "string" // OPEN_HOST_SERVICE, ANTICORRUPTION_LAYER, etc.
+              }
+            ]
+          }
+        ]
+      }
+    requiredVariables:
+      - classes
+
+  - id: microservice-candidate-design
+    description: Designs microservice candidates from bounded contexts
+    template: |
+      As a microservices architect, design microservice candidates for the following bounded context:
+
+      Bounded Context:
+      {{boundedContext}}
+
+      Consider:
+      1. Service responsibility and size
+      2. API design and contracts
+      3. Data ownership and persistence
+      4. Event publishing and handling
+      5. External dependencies and integration
+
+      Format your response as JSON with the following structure:
+      {
+        "microservice": {
+          "name": "string",
+          "description": "string",
+          "apis": [
+            {
+              "path": "string",
+              "method": "string",
+              "requestBody": "string",
+              "responseBody": "string"
+            }
+          ],
+          "events": [
+            {
+              "name": "string",
+              "payload": "string",
+              "subscribers": ["string"]
+            }
+          ],
+          "persistence": {
+            "type": "string",
+            "schema": "string",
+            "tables": ["string"]
+          },
+          "dependencies": ["string"]
+        }
+      }
+    requiredVariables:
+      - boundedContext

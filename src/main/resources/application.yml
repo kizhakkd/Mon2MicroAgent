@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: mon2micro-agent
+
+llm:
+  palm:
+    endpoint: ${LLM_ENDPOINT:https://generativelanguage.googleapis.com}
+    key: ${LLM_API_KEY}
+
+logging:
+  level:
+    com.google.adk.modernization: DEBUG
+
+agent:
+  workspace:
+    monolith: ${MONOLITH_PATH:./test-monolith}
+    output: ${OUTPUT_PATH:./output}
+  analysis:
+    batch-size: 10
+    timeout-seconds: 300
+  validation:
+    run-tests: true
+    deploy-services: false

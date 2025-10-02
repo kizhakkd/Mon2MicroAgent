@@ -1,0 +1,89 @@
+name: Code Refactoring Prompts
+description: Prompts for intelligent code refactoring using LLMs
+
+templates:
+  - id: refactor-class
+    description: Plans the refactoring of a class for microservice migration
+    template: |
+      As a software architect specializing in refactoring, analyze the following Java class and suggest refactoring steps for microservice migration:
+
+      Original Class:
+      {{sourceCode}}
+
+      Target Context:
+      {{targetContext}}
+
+      Consider:
+      1. DDD patterns and principles
+      2. Clean architecture guidelines
+      3. Microservice best practices
+      4. Data access patterns
+      5. Transaction boundaries
+
+      Format your response as JSON with the following structure:
+      {
+        "refactoring": {
+          "steps": [
+            {
+              "type": "string", // MOVE, RENAME, EXTRACT, etc.
+              "description": "string",
+              "oldCode": "string",
+              "newCode": "string",
+              "reason": "string"
+            }
+          ],
+          "newLocation": "string",
+          "requiredChanges": [
+            {
+              "file": "string",
+              "type": "string",
+              "details": "string"
+            }
+          ]
+        }
+      }
+    requiredVariables:
+      - sourceCode
+      - targetContext
+
+  - id: dependency-update
+    description: Plans updates to class dependencies after refactoring
+    template: |
+      As a software architect, analyze the following dependency changes needed after refactoring:
+
+      Original Dependencies:
+      {{originalDependencies}}
+
+      Refactored Class:
+      {{refactoredClass}}
+
+      New Service Context:
+      {{serviceContext}}
+
+      Suggest updates to manage these dependencies in the microservice architecture.
+      Consider:
+      1. Service boundaries
+      2. API calls vs. Event-driven communication
+      3. Transactional requirements
+      4. Eventual consistency patterns
+
+      Format your response as JSON with the following structure:
+      {
+        "updates": [
+          {
+            "type": "string", // API_CALL, EVENT, SAGA, etc.
+            "oldDependency": "string",
+            "newMechanism": "string",
+            "codeChanges": [
+              {
+                "file": "string",
+                "changes": ["string"]
+              }
+            ]
+          }
+        ]
+      }
+    requiredVariables:
+      - originalDependencies
+      - refactoredClass
+      - serviceContext

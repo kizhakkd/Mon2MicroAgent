@@ -1,0 +1,109 @@
+name: Migration Planning Prompts
+description: Prompts for planning the strangler fig migration strategy
+
+templates:
+  - id: migration-strategy
+    description: Determines the optimal migration strategy for a set of services
+    template: |
+      As a microservices migration expert, analyze the following microservice candidates and their dependencies to create a migration strategy:
+
+      Services and Dependencies:
+      {{services}}
+
+      Current Architecture:
+      {{architecture}}
+
+      Consider:
+      1. Service dependencies and coupling
+      2. Data dependencies and sharing
+      3. Transaction boundaries
+      4. Business criticality
+      5. Team structure and capabilities
+
+      Create a phased migration plan that:
+      1. Minimizes risk and business impact
+      2. Maintains system stability
+      3. Enables incremental validation
+      4. Provides rollback capabilities
+
+      Format your response as JSON with the following structure:
+      {
+        "phases": [
+          {
+            "number": "integer",
+            "services": ["string"],
+            "steps": ["string"],
+            "validationCriteria": ["string"],
+            "rollbackProcedure": "string"
+          }
+        ],
+        "risks": ["string"],
+        "mitigations": ["string"]
+      }
+    requiredVariables:
+      - services
+      - architecture
+    examples:
+      services: |
+        - OrderService:
+            dependencies: [CustomerService, ProductService]
+            apis: [/orders, /orders/{id}]
+            data: [orders, order_items]
+        - CustomerService:
+            dependencies: []
+            apis: [/customers, /customers/{id}]
+            data: [customers]
+      architecture: |
+        Monolithic Spring application with:
+        - Shared Oracle database
+        - Apache ActiveMQ for messaging
+        - nginx reverse proxy
+
+  - id: gateway-configuration
+    description: Generates gateway routing configuration for strangler fig pattern
+    template: |
+      As a system architect, create a gateway configuration for the following services being migrated:
+
+      Current Routes:
+      {{routes}}
+
+      New Services:
+      {{newServices}}
+
+      Consider:
+      1. Traffic routing rules
+      2. Header-based routing
+      3. Circuit breaking
+      4. Rate limiting
+      5. Monitoring and observability
+
+      Format your response as JSON with the following structure:
+      {
+        "routes": [
+          {
+            "path": "string",
+            "destination": "string",
+            "trafficPercentage": "integer",
+            "headers": {"string": "string"},
+            "circuitBreaker": {
+              "enabled": "boolean",
+              "threshold": "integer"
+            }
+          }
+        ],
+        "middleware": ["string"],
+        "observability": {
+          "metrics": ["string"],
+          "tracing": "boolean"
+        }
+      }
+    requiredVariables:
+      - routes
+      - newServices
+    examples:
+      routes: |
+        - /api/orders/* -> monolith:8080
+        - /api/customers/* -> monolith:8080
+      newServices: |
+        - OrderService: /api/orders/*
+        - CustomerService: /api/customers/*
